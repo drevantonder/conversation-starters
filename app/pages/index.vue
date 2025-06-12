@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-const { data: conversationStarter } = await useFetch('/api/conversation-starters/today')
+const { data: conversationStarter } = await useFetch('/api/conversation-starters/latest')
 </script>
 
 <template>

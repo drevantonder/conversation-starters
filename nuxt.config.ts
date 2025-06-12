@@ -20,7 +20,8 @@ export default defineNuxtConfig({
   ],
 
   hub: {
-    database: true
+    database: true,
+    ai: true
   },
 
   vite: {
@@ -30,4 +31,16 @@ export default defineNuxtConfig({
   },
 
   css: ['~/assets/css/main.css'],
+
+  nitro: {
+    experimental: {
+      tasks: true
+    },
+    
+    scheduledTasks: {
+      '0 */3 * * *': [
+        'generate-conversation-starter'
+      ]
+    }
+  }
 })
