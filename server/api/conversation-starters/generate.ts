@@ -1,6 +1,6 @@
 import { desc } from 'drizzle-orm'
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async () => {
   const ai = hubAI()
   
   // Get recent conversation starters for context
