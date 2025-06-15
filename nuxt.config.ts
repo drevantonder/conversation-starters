@@ -38,7 +38,7 @@ export default defineNuxtConfig({
     },
     
     scheduledTasks: {
-      '0 */3 * * *': [
+      '0 */1 * * *': [
         'generate-conversation-starter'
       ]
     }
