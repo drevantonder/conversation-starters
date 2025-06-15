@@ -4,17 +4,13 @@ export default defineTask({
     description: "Generates the latest conversation starter",
   },
   async run({ payload, context }) {
-    const conversationStarter = await $fetch('/api/conversation-starters/generate')
-    
-    await $fetch('/api/conversation-starters', {
-      method: 'POST',
-      body: {
-        text: conversationStarter
-      }
+    const conversationStarter = await $fetch('/api/conversation-starters/generate-and-save', {
+      method: 'POST'
     })
 
     return {
-      result: 'Success'
+      result: 'Success',
+      conversationStarter
     }
   },
 });
