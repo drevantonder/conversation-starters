@@ -13,27 +13,26 @@ export default defineEventHandler(async () => {
   const recentQuestions = recent.map(r => r.text).join('\n- ')
   
   return (await ai.run('@cf/meta/llama-3.2-3b-instruct', {
-    prompt: `Generate a creative conversation starter question that sparks interesting discussion.
+    prompt: `Generate ONLY a short conversation starter question. No explanations, no commentary, no analysis - just the question.
 
-FOR CONTEXT (recent questions generated - aim for natural variety):
+RECENT QUESTIONS - DO NOT REPEAT THESE TOPICS:
 - ${recentQuestions}
 
-REQUIREMENTS:
-- Create something that feels fresh but not forced to be different
-- Keep it engaging and accessible to everyone
-- 1-2 sentences maximum
-- No prefixes like "The question:", "Here's a conversation starter:", or similar
-- Make it thought-provoking but light and fun
+STRICTLY AVOID:
+- Any topic similar to recent questions above
 
-GOOD EXAMPLES:
-What pizza topping would you be and why?
-If spiders carried little guitars and strummed them, would they be less scary?
-Which household appliance do you think has the most attitude?
-What would your signature dance move be called?
-If colors had personalities, which one would be your best friend?
+Requirements: Maximum 15 words, easy to say aloud, casual group conversation.
 
-Generate one unique conversation starter:`,
+Examples (notice the format - QUESTION ONLY):
+What pizza topping would you be?
+Which appliance has the most attitude?
+What sound does silence make?
+Which emotion would make the worst roommate?
+What would your theme song genre be?
+
+Return ONLY the question, nothing else:`,
     max_tokens: 50,
+    temperature: 0.9,
     stream: false
   })).response?.trim()
 })
