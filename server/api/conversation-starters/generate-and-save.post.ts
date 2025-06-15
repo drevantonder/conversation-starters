@@ -1,21 +1,5 @@
-export default defineEventHandler(async (event) => {
-  const ai = hubAI()
-  const generatedText = (await ai.run('@cf/meta/llama-3.2-3b-instruct', {
-    prompt: `A concise (1-2 short sentences) fun conversation starter question.
-## Examples
-Prompt: The question:
-Response: What pizza topping would you be?
-
-Prompt: The question:
-Response: If spiders carried little guitars and strummed them, would they be less scary?
-
-Prompt: The question:
-Response: Can you visualize an apple clearly in your head?
-
-The question:`,
-    max_tokens: 50,
-    stream: false
-  })).response?.trim()
+export default defineEventHandler(async () => {
+  const generatedText = await $fetch('/api/conversation-starters/generate')
 
   if (!generatedText) {
     throw createError({
@@ -25,8 +9,7 @@ The question:`,
   }
 
   const conversationStarter = (await useDrizzle().insert(tables.conversationStarters).values({
-    text: generatedText,
-    createdAt: new Date()
+    text: generatedText
   }).returning())[0]
 
   return conversationStarter

@@ -6,8 +6,7 @@ export default defineEventHandler(async (event) => {
   }).parse)
 
   const conversationStarter = (await useDrizzle().insert(tables.conversationStarters).values({
-    text: body.text,
-    createdAt: new Date()
+    text: body.text
   }).returning())[0]
 
   return conversationStarter
