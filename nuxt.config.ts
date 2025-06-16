@@ -42,5 +42,16 @@ export default defineNuxtConfig({
         'generate-conversation-starter'
       ]
     }
-  }
+  },
+
+  runtimeConfig: {
+    public: {
+      posthogPublicKey: process.env.NUXT_PUBLIC_POSTHOG_PUBLIC_KEY,
+    }
+  },
+
+  routeRules: {
+    '/ingest/static/**': { proxy: 'https://us-assets.i.posthog.com/static/**' },
+    '/ingest/**': { proxy: 'https://us.i.posthog.com/**' },
+  },
 })
